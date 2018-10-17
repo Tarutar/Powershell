@@ -41,3 +41,14 @@ foreach ($number in $num){
     $ans = $number*$userinput
     Write-Host $ans
 }
+
+$serverlist = Import-Csv D:\Powershell\serverlist.csv
+Write-Host "Attempting to reach remote servers..."
+foreach ($server in $serverlist.Servers){   
+    if(Test-Connection -ComputerName $server -Count 3 -Delay 2 -Quiet){
+        Write-Host "$server ---- Success!"
+    }
+    else{
+        Write-Host "Unable to reach $server"
+    }
+}
