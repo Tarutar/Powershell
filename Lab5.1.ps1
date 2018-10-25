@@ -68,5 +68,12 @@ foreach ($server in $serverlist.Servers){
 
 #This portion of the script will create folders with printer information
 function printerinfo {
-
+    $printerlist = Get-Printer
+    foreach($thing in $printerlist){
+        New-Item -ItemType Directory -Name $thing.Name -Path D:\Powershell\Labs
+    }
+    
+    foreach($printer in Get-ChildItem D:\Powershell\Labs){
+        Get-Printer | ConvertTo-Json | Out-File D:\Powershell\Labs\$printer\printerinfo.json
+    }
 }
